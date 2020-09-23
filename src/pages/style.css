@@ -11,6 +11,22 @@ button {
   border: none;
 }
 
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder {
+  text-align: center;
+}
+
+::-moz-placeholder {
+  text-align: center;
+}
+
+:-ms-input-placeholder {
+  text-align: center;
+}
+
 .header {
   max-width: 468px;
   margin: auto;
