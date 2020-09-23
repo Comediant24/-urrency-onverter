@@ -1,11 +1,26 @@
 import React from 'react';
 
-function Currencies() {
+function Currencies({ currencies, value }) {
+  const [valueDefault, setValueDefault] = React.useState(value);
+
+  function handleChange(event) {
+    setValueDefault(event.target.value);
+  }
+
   return (
-    <select name="currency" className="form__select">
-      <option value="usd">USD</option>
-      <option value="eur">EUR</option>
-      <option value="rub">RUB</option>
+    <select
+      value={valueDefault}
+      name="currency"
+      onChange={handleChange}
+      className="form__select"
+    >
+      {currencies
+        ? Object.keys(currencies).map((item, index) => (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          ))
+        : null}
     </select>
   );
 }
