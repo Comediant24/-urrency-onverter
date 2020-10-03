@@ -1,14 +1,22 @@
 import React from 'react';
 
-function Input({ inputType, currencies, value }) {
-  const [inputValue, setInputValue] = React.useState(1);
-  const [selectValue, setSelectValue] = React.useState(value);
+function Input({ selectValue, value, onValueChange, allCurrency, inputType }) {
+  //const [inputValue, setInputValue] = React.useState('');
+  // const [selectValue, setSelectValue] = React.useState(value);
 
-  function handleChange(event) {
-    setSelectValue(event.target.value);
-  }
-  function changeInput(evt) {
-    setInputValue(evt.target.value);
+  // function handleChange(e) {
+  //   setSelectValue(e.target.value);
+  // }
+  // function changeInput(e) {
+  //   setInputValue(e.target.value);
+  // }
+
+  // React.useEffect(() => {
+  //   setInputValue(value);
+  // }, []);
+
+  function handleChangeValue(e) {
+    onValueChange(e.target.value);
   }
 
   return (
@@ -18,18 +26,18 @@ function Input({ inputType, currencies, value }) {
         name="entityId1"
         placeholder="Введите значение"
         className={`form__input ${inputType} form__input_type_entity-id`}
-        value={inputValue}
-        onChange={changeInput}
+        value={value}
+        onChange={onValueChange}
       />
       <div className="form__select-container">
         <select
           value={selectValue}
           name="currency"
-          onChange={handleChange}
+          onChange={handleChangeValue}
           className="form__select"
         >
-          {currencies
-            ? Object.keys(currencies).map((item, index) => (
+          {allCurrency
+            ? Object.keys(allCurrency).map((item, index) => (
                 <option key={index} value={item}>
                   {item}
                 </option>
