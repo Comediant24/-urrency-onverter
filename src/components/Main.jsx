@@ -23,7 +23,9 @@ function Main() {
   }
 
   React.useEffect(() => {
-    setInputValueRight(roudingValue(allCurrency[selectСurrencyRight]));
+    setInputValueRight(
+      roudingValue(inputValueLeft * allCurrency[selectСurrencyRight])
+    );
   }, [allCurrency, selectСurrencyRight]);
 
   React.useEffect(() => {
