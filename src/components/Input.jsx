@@ -10,7 +10,6 @@ function Input({
   onValueChange,
   onSelectChange,
 }) {
-  console.log('inputValue', inputValue);
   function handleChangeValue(e) {
     onValueChange(e);
   }
