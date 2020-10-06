@@ -5,7 +5,7 @@ function Header() {
   return (
     <header className="header">
       <div className="header__logo-container">
-        <a href="/">
+        <a href="./">
           <img
             src={logo}
             alt="Супер лого Конвертера"
