@@ -41,7 +41,11 @@ function Input({
             ? Object.keys(allCurrency)
                 .sort()
                 .map((item, index) => (
-                  <option key={index} value={item}>
+                  <option
+                    className="form__select-option"
+                    key={index}
+                    value={item}
+                  >
                     {item}
                   </option>
                 ))

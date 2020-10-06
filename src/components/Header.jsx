@@ -1,11 +1,17 @@
 import React from 'react';
-import logo from '../images/logo.png';
+import logo from '../images/logo.svg';
 
 function Header() {
   return (
     <header className="header">
       <div className="header__logo-container">
-        <img src={logo} alt="Супер лого Конвертера" className="header__logo" />
+        <a href="/">
+          <img
+            src={logo}
+            alt="Супер лого Конвертера"
+            className="header__logo"
+          />
+        </a>
         <p className="header__logo-sub">Мой Конвертер Валют</p>
       </div>
     </header>
