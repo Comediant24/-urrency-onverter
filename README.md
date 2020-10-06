@@ -2,7 +2,7 @@
 
 **Ссылка на проект в gh-pages: [React Currency Converter](https://comediant24.github.io/currency-converter/)**
 
-![Watch the video](./public/change-color.gif)
+![Watch the video](./public/readme-gif.gif)
 
 ## 📖 Задача
 
@@ -19,3 +19,11 @@
 - HTML, CSS
 - JS, React
 - [API exchangeratesapi.io](http://exchangeratesapi.io/)
+
+## 💻 Установка зависимостей
+
+##### `npm i` – установить зависимости проекта
+
+##### `npm start` – запуск devServer на http://localhost:3000/
+
+##### `npm run build` – production сборка проекта
