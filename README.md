@@ -19,3 +19,11 @@
 - HTML, CSS
 - JS, React
 - [API exchangeratesapi.io](http://exchangeratesapi.io/)
+
+## 💻 Установка зависимостей
+
+##### `npm i` – установить зависимости проекта
+
+##### `npm start` – запуск devServer на http://localhost:3000/
+
+##### `npm run build` – production сборка проекта
