@@ -2,7 +2,7 @@
 
 **Ссылка на проект в gh-pages: [React Currency Converter](https://comediant24.github.io/currency-converter/)**
 
-![Watch the video](./public/change-color.gif)
+![Watch the video](./public/readme-gif.gif)
 
 ## 📖 Задача
 
