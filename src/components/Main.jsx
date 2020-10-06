@@ -1,69 +1,74 @@
 import React from 'react';
-//import api from '../utils/api';
+import api from '../utils/api';
 import Input from './Input';
 
 function Main() {
-  // const [currencies, setCurrencies] = React.useState(null);
+  React.useEffect(() => {
+    api.getCurrency().then((data) => {
+      setAllCurrency({ ...data.rates, [data.base]: 1 });
+    });
+  }, []);
 
-  // React.useEffect(() => {
-  //   api.getCurrency().then((data) => {
-  //     setCurrencies(data.rates);
-  //   });
-  // }, []);
+  const [base, setBase] = React.useState('EUR');
+  const [allCurrency, setAllCurrency] = React.useState({});
 
-  const getCurrency = {
-    base: 'EUR',
-    rates: {
-      THB: '20',
-      RUB: '45',
-      USD: '1.2',
-    },
-  };
+  const [inputValueLeft, setInputValueLeft] = React.useState('1');
+  const [selectСurrencyLeft, setSelectCurrencyLeft] = React.useState(base);
 
-  function val1ToVal2(value) {
-    //ввод в первый инпут => результат во втором
-    return value * getCurrency.rates.THB;
+  const [inputValueRight, setInputValueRight] = React.useState(allCurrency.RUB);
+  const [selectСurrencyRight, setSelectCurrencyRight] = React.useState('RUB');
+
+  function roudingValue(value) {
+    return Math.floor(value * 100) / 100;
   }
 
-  function val2ToVal1(value) {
-    //ввод во второй инпут => результат в первом
-    return value / getCurrency.rates.THB;
+  React.useEffect(() => {
+    setInputValueRight(roudingValue(allCurrency[selectСurrencyRight]));
+  }, [allCurrency, selectСurrencyRight]);
+
+  React.useEffect(() => {
+    api.setNewBase(base).then((data) => {
+      setAllCurrency({ ...data.rates, [data.base]: 1 });
+    });
+  }, [base]);
+
+  function handleInput(e) {
+    e.target.name === 'left' ? handleInputLeft(e) : handleInputRight(e);
   }
 
-  function tryConvert(value, convert) {
-    const input = parseFloat(value);
-    if (Number.isNaN(input)) {
-      return '';
-    }
-    const output = convert(value);
-    const rounded = Math.round(output * 100) / 100;
-    return rounded.toString();
+  function handleInputLeft(e) {
+    setInputValueLeft(e.target.value);
+    setInputValueRight(
+      roudingValue(e.target.value * allCurrency[selectСurrencyRight])
+    );
   }
 
-  const [inputValue, setInputValue] = React.useState('');
-  const [selectValue, setSelectValue] = React.useState('');
-  console.log('Main -> inputValue', inputValue);
-
-  // function changeInput(e) {
-  //   setInputValue(e.target.value);
-  // }
-
-  function handleEurChange(value) {
-    setInputValue(value);
-    setSelectValue(getCurrency.base);
+  function handleInputRight(e) {
+    setInputValueRight(e.target.value);
+    setInputValueLeft(
+      roudingValue(e.target.value / allCurrency[selectСurrencyRight])
+    );
   }
 
-  function handleThbChange(value) {
-    setInputValue(value);
-    setSelectValue(getCurrency.base);
+  function handleSelect(e) {
+    setBase(e.target.value);
+    e.target.name === 'leftCurrency'
+      ? handleSelectLeft(e)
+      : handleSelectRight(e);
   }
 
-  const eur =
-    selectValue === 'EUR' ? tryConvert(inputValue, val1ToVal2) : inputValue;
-  const thb =
-    selectValue === 'THB' ? tryConvert(inputValue, val2ToVal1) : inputValue;
+  function handleSelectLeft(e) {
+    setSelectCurrencyLeft(e.target.value);
+    setBase(e.target.value);
+    setInputValueRight(
+      roudingValue(inputValueLeft * allCurrency[selectСurrencyRight])
+    );
+  }
+  function handleSelectRight(e) {
+    setSelectCurrencyRight(e.target.value);
+    setBase(selectСurrencyLeft);
+  }
 
-  console.log('Main -> eur', eur);
   return (
     <main className="container">
       <form name="search" className="form form_type_search">
@@ -71,25 +76,26 @@ function Main() {
         <div className="form__section">
           <div className="form__wrapper form__wrapper_type_left">
             <Input
-              // inputValue={inputValue}
-              // onValueChange={changeInput}
-              // inputType="form__input_left"
-              // value={inputValue}
-              // allCurrency={getCurrency.rates}
-              selectValue={selectValue}
-              value={eur}
-              onValueChange={handleEurChange}
-              allCurrency={getCurrency.rates}
-              inputType="form__input_left"
+              className="form__input_left"
+              selectValue={selectСurrencyLeft}
+              inputValue={inputValueLeft}
+              allCurrency={allCurrency}
+              nameInput="left"
+              nameSelect="leftCurrency"
+              onValueChange={handleInput}
+              onSelectChange={handleSelect}
             />
           </div>
           <div className="form__wrapper">
             <Input
-              selectValue={getCurrency.rates.THB}
-              value={thb}
-              onValueChange={handleThbChange}
-              allCurrency={getCurrency.rates}
-              inputType="form__input_right"
+              className="form__input_right"
+              selectValue={selectСurrencyRight}
+              inputValue={inputValueRight}
+              allCurrency={allCurrency}
+              nameInput="right"
+              nameSelect="rightCurrency"
+              onValueChange={handleInput}
+              onSelectChange={handleSelect}
             />
           </div>
         </div>

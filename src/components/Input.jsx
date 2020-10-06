@@ -1,47 +1,50 @@
 import React from 'react';
 
-function Input({ selectValue, value, onValueChange, allCurrency, inputType }) {
-  //const [inputValue, setInputValue] = React.useState('');
-  // const [selectValue, setSelectValue] = React.useState(value);
-
-  // function handleChange(e) {
-  //   setSelectValue(e.target.value);
-  // }
-  // function changeInput(e) {
-  //   setInputValue(e.target.value);
-  // }
-
-  // React.useEffect(() => {
-  //   setInputValue(value);
-  // }, []);
-
+function Input({
+  className,
+  selectValue,
+  inputValue,
+  allCurrency,
+  nameInput,
+  nameSelect,
+  onValueChange,
+  onSelectChange,
+}) {
+  console.log('inputValue', inputValue);
   function handleChangeValue(e) {
-    onValueChange(e.target.value);
+    onValueChange(e);
   }
 
+  function handleChangeSelect(e) {
+    onSelectChange(e);
+  }
   return (
     <>
-      <input
-        type="number"
-        name="entityId1"
-        placeholder="Введите значение"
-        className={`form__input ${inputType} form__input_type_entity-id`}
-        value={value}
-        onChange={onValueChange}
-      />
+      <div className="form__input-container">
+        <input
+          type="number"
+          placeholder="Введите значение"
+          className={`form__input ${className} form__input_type_entity-id`}
+          value={inputValue ? inputValue : ''}
+          name={nameInput}
+          onChange={handleChangeValue}
+        />
+      </div>
       <div className="form__select-container">
         <select
           value={selectValue}
-          name="currency"
-          onChange={handleChangeValue}
+          name={nameSelect}
+          onChange={handleChangeSelect}
           className="form__select"
         >
           {allCurrency
-            ? Object.keys(allCurrency).map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
-                </option>
-              ))
+            ? Object.keys(allCurrency)
+                .sort()
+                .map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))
             : null}
         </select>
       </div>
