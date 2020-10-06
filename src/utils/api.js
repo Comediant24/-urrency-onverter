@@ -17,6 +17,10 @@ class Api {
   getCurrency() {
     return fetch(`${this._url}`).then((res) => this._handleResponse(res));
   }
+
+  setNewBase(base) {
+    return fetch(`${this._url}?base=${base}`).then((res) => this._handleResponse(res));
+  }
 }
 
 const api = new Api(currenciesApi);
